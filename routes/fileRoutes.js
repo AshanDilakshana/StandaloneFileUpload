@@ -1,13 +1,14 @@
 import express from "express";
 import multer from "multer";
 import { uploadFile, downloadFile } from "../controllers/fileController.js";
+import os from "os";
 
 const router = express.Router();
 
 // Multer Config
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/");
+    cb(null, os.tmpdir());
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + "-" + file.originalname);
